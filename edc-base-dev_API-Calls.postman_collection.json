@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "3bd1449b-f865-44ba-9846-5975329dae64",
+		"name": "edc-base-dev_API-Calls",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6134257"
+	},
+	"item": [
+		{
+			"name": "Data Provider",
+			"item": [
+				{
+					"name": "1. Create sample data in BackEndDataService",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"performanceIndicator\": {\n        \"electricCapacityMin\": 1.7976931348623155E308,\n        \"electricCapacityMax\": 1.7976931348623155E308\n    },\n    \"minimalStateOfHealth\": {\n        \"minimalStateOfHealthValue\": 1.7976931348623155E308,\n        \"specificatorId\": \"eOMtThyhVNLWUZNRcBaQKxI\",\n        \"minimalStateOfHealthPhase\": \"as specified by OEM\"\n    },\n    \"type\": \"HVB\",\n    \"currentStateOfHealth\": [\n        {\n            \"currentStateOfHealthPhase\": \"as specified by OEM\",\n            \"currentStateOfHealthTimestamp\": \"2022-04-07T11:55:16.809Z\",\n            \"currentStateOfHealthValue\": 1.7976931348623155E308\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendDataServiceUrl}}/data/{{digitalTwinSubmodelId}}",
+							"host": [
+								"{{backendDataServiceUrl}}"
+							],
+							"path": [
+								"data",
+								"{{digitalTwinSubmodelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.1 Get sample data from BackEndDataService",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"performanceIndicator\": {\n        \"electricCapacityMin\": 1.7976931348623155E308,\n        \"electricCapacityMax\": 1.7976931348623155E308\n    },\n    \"minimalStateOfHealth\": {\n        \"minimalStateOfHealthValue\": 1.7976931348623155E308,\n        \"specificatorId\": \"eOMtThyhVNLWUZNRcBaQKxI\",\n        \"minimalStateOfHealthPhase\": \"as specified by OEM\"\n    },\n    \"type\": \"HVB\",\n    \"currentStateOfHealth\": [\n        {\n            \"currentStateOfHealthPhase\": \"as specified by OEM\",\n            \"currentStateOfHealthTimestamp\": \"2022-04-07T11:55:16.809Z\",\n            \"currentStateOfHealthValue\": 1.7976931348623155E308\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendDataServiceUrl}}/data/{{digitalTwinSubmodelId}}",
+							"host": [
+								"{{backendDataServiceUrl}}"
+							],
+							"path": [
+								"data",
+								"{{digitalTwinSubmodelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Create an Asset in Provider EDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"asset\": {\n    \"properties\": {\n      \"asset:prop:id\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n      \"asset:prop:name\": \"product description\",\n      \"asset:prop:contenttype\": \"application/json\",\n      \"asset:prop:policy-id\": \"use-eu\"\n    }\n  },\n  \"dataAddress\": {\n    \"properties\": {\n      \"endpoint\": \"{{backendDataServiceDockerInternalUrl}}/{{digitalTwinSubmodelId}}\",\n      \"type\": \"HttpData\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/assets",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Create a Policy in Provider EDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"uid\": \"{{edcPolicyId}}\",\n  \"permissions\": [\n    {\n      \"target\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n      \"action\": {\n        \"type\": \"USE\"\n      },\n      \"edctype\": \"dataspaceconnector:permission\"\n    }\n  ],\n  \"@type\": {\n    \"@policytype\": \"set\"\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/policies",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Create a contract definition in Provider EDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"accessPolicyId\": \"{{edcPolicyId}}\",\n  \"contractPolicyId\": \"{{edcPolicyId}}\",\n  \"criteria\": []\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/contractdefinitions",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"contractdefinitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data Consumer",
+			"item": [
+				{
+					"name": "1. Get data via API-Wrapper",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "somepassword",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "someuser",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiWrapperUrl}}/urn:uuid:365e6fbe-bb34-11ec-8422-0242ac120002-urn:uuid:61125dc3-5e6f-4f4b-838d-447432b97918/submodel?provider-connector-url={{providerControlPlaneIdsDockerInternal}}",
+							"host": [
+								"{{apiWrapperUrl}}"
+							],
+							"path": [
+								"urn:uuid:365e6fbe-bb34-11ec-8422-0242ac120002-urn:uuid:61125dc3-5e6f-4f4b-838d-447432b97918",
+								"submodel"
+							],
+							"query": [
+								{
+									"key": "provider-connector-url",
+									"value": "{{providerControlPlaneIdsDockerInternal}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiWrapperUrl",
+			"value": "http://localhost:7090/api/service",
+			"type": "string"
+		},
+		{
+			"key": "providerControlPlane",
+			"value": "http://localhost:8087",
+			"type": "string"
+		},
+		{
+			"key": "providerControlPlaneIdsDockerInternal",
+			"value": "http://provider-controlplane:8282",
+			"type": "string"
+		},
+		{
+			"key": "backendDataServiceUrl",
+			"value": "http://localhost:7080",
+			"type": "string"
+		},
+		{
+			"key": "providerBpn",
+			"value": "some-bpn",
+			"type": "default"
+		},
+		{
+			"key": "digitalTwinId",
+			"value": "urn:uuid:365e6fbe-bb34-11ec-8422-0242ac120002",
+			"type": "string"
+		},
+		{
+			"key": "digitalTwinSubmodelId",
+			"value": "urn:uuid:61125dc3-5e6f-4f4b-838d-447432b97918",
+			"type": "string"
+		},
+		{
+			"key": "edcPolicyId",
+			"value": "231802-bb34-11ec-8422-0242ac120002",
+			"type": "string"
+		},
+		{
+			"key": "backendDataServiceDockerInternalUrl",
+			"value": "http://provider-backend-service:8080/data",
+			"type": "string"
+		}
+	]
+}

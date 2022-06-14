@@ -1,0 +1,118 @@
+version: "3.9"
+
+services:
+  provider-controlplane:
+    build:
+      context: edc-controlplane-memory
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "8081:9191" # default/control (8181:9191)
+      - "8084:9192" # validation (8184:9192)
+      - "8087:9193" # data (8187:9193)
+      - "5005:8090" # debugging
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/provider_cp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  provider-dataplane:
+    build:
+      context: edc-dataplane
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "9082:9191" # default (8182:9191)
+      - "9083:9192" # public (8283:9192)
+      - "5006:8090" # debugging
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/provider_dp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  consumer-controlplane:
+    build:
+      context: edc-controlplane-memory
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "8182:8282" # ids
+      - "8185:8185" # public
+      - "8191:9191" # default
+      - "8192:9192" # validation
+      - "8195:9193" # data
+      - "8199:9999" # control
+      - "5007:8090" # debugging
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/consumer_cp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  consumer-dataplane:
+    build:
+      context: edc-dataplane
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "9192:9191" # default (8192:9191)
+      - "9183:9192" # public (8183:9192)
+      - "5008:8090" # debugging
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/consumer_dp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  provider-backend-service:
+    build:
+      context: backend-data-service
+      args:
+        JAR: build/libs/backend-data-service.jar
+    ports:
+      - "7080:8080" # default (8194:8080)
+      - "5009:8090"
+
+  consumer-api-wrapper:
+    image: ghcr.io/catenax-ng/catenax-at-home/consumer-api-wrapper:0.0.3
+    ports:
+      - "7090:9191" # default (8193:9191)
+      - "5010:8090" # debugging
+    environment:
+      EDC_FS_CONFIG: /app/api-wrapper_configuration.properties
+    volumes:
+      - ./config/api-wrapper_configuration.properties:/app/api-wrapper_configuration.properties
