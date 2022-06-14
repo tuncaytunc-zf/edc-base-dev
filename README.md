@@ -7,7 +7,7 @@ This project provides an easy to build and run of Control-Plane and Data-Plane w
 The eclipse data space connector is split up into Control-Plane and Data-Plane, whereas the Control-Plane functions as administration layer
 and has responsibility of resource management, contract negotiation and administer data transfer. 
 The Data-Plane does the heavy lifting of transferring and receiving data streams.
-The backend data service is just for creating and retrieving some dummy string values via with API-Calls.
+The backend data service is just for creating and retrieving some dummy string values via API-Calls.
 
 Controlplane
 
@@ -35,8 +35,9 @@ to be built upfront to be used:
 
 ```shell
 git submodule update --init
-cd edc && ./gradlew publishToMavenLocal
+cd edc && ./gradlew publishToMavenLocal -x test
 ```
+
 
 ## Build
 
