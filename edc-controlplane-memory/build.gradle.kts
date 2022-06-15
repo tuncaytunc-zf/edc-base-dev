@@ -10,11 +10,18 @@ dependencies {
     val edcGroup = "org.eclipse.dataspaceconnector"
     val edcVersion = "0.0.1-SNAPSHOT"
 
+    // Config
     api("$edcGroup:filesystem-configuration:$edcVersion")
+
+    // Vault
     api("$edcGroup:filesystem-vault:$edcVersion")
+
+    // APIs
     api("$edcGroup:control-api:$edcVersion")
     api("$edcGroup:data-management-api:$edcVersion")
     api("$edcGroup:observability-api:$edcVersion")
+
+    // IDS
     api("$edcGroup:ids-api-configuration:$edcVersion")
     api("$edcGroup:ids-api-multipart-dispatcher-v1:$edcVersion")
     api("$edcGroup:ids-api-multipart-endpoint-v1:$edcVersion")
@@ -22,16 +29,28 @@ dependencies {
     api("$edcGroup:ids-core:$edcVersion")
     api("$edcGroup:ids-spi:$edcVersion")
     api("$edcGroup:ids-token-validation:$edcVersion")
+
+    // Core
     api("$edcGroup:core-base:$edcVersion")
     api("$edcGroup:core-boot:$edcVersion")
     api("$edcGroup:transfer:$edcVersion")
     api("$edcGroup:contract:$edcVersion")
+
+    // Data-Plane
     api("$edcGroup:data-plane-transfer-sync:$edcVersion")
+
+    // IAM
     api("$edcGroup:iam-mock:$edcVersion")
+
+    // Telemetry
     api("$edcGroup:core-micrometer:$edcVersion")
     api("$edcGroup:jersey-micrometer:$edcVersion")
     api("$edcGroup:jetty-micrometer:$edcVersion")
+
+    // Logging
     api("$edcGroup:jdk-logger-monitor:$edcVersion")
+
+    // Supportive includes jetty and jersey
     api("$edcGroup:http:$edcVersion")
     api("$edcGroup:http-receiver:$edcVersion")
 }

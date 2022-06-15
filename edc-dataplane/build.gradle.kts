@@ -10,18 +10,31 @@ dependencies {
     val edcGroup = "org.eclipse.dataspaceconnector"
     val edcVersion = "0.0.1-SNAPSHOT"
 
+    // Config
     api("$edcGroup:filesystem-configuration:$edcVersion")
+
+    // Vault
     api("$edcGroup:filesystem-vault:$edcVersion")
+
+    // APIs
     api("$edcGroup:data-plane-framework:$edcVersion")
     api("$edcGroup:data-plane-http:$edcVersion")
     api("$edcGroup:data-plane-api:$edcVersion")
     api("$edcGroup:observability-api:$edcVersion")
+
+    // Core
     api("$edcGroup:core-base:$edcVersion")
     api("$edcGroup:core-boot:$edcVersion")
+
+    // Telemetry
     api("$edcGroup:core-micrometer:$edcVersion")
     api("$edcGroup:jersey-micrometer:$edcVersion")
     api("$edcGroup:jetty-micrometer:$edcVersion")
+
+    // Logging
     api("$edcGroup:jdk-logger-monitor:$edcVersion")
+
+    // Supportive includes jetty and jersey
     api("$edcGroup:http:$edcVersion")
 }
 
