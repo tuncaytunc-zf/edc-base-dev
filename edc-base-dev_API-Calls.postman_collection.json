@@ -159,7 +159,7 @@
 					"response": []
 				},
 				{
-					"name": "4. Create a contract definition in Provider EDC",
+					"name": "4. Create a Contract Definition in Provider EDC",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -314,7 +314,7 @@
 		},
 		{
 			"key": "backendDataServiceDockerInternalUrl",
-			"value": "http://provider-backend-service:8080/data",
+			"value": "http://provider-backend-data-service:8080/data",
 			"type": "string"
 		}
 	]

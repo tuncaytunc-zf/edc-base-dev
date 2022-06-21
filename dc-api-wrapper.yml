@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  consumer-api-wrapper:
+    image: ghcr.io/catenax-ng/catenax-at-home/consumer-api-wrapper:0.0.3
+    ports:
+      - "7090:9191" # default (8193:9191)
+      - "5010:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      EDC_FS_CONFIG: /app/api-wrapper_configuration.properties
+    volumes:
+      - ./config/api-wrapper_configuration.properties:/app/api-wrapper_configuration.properties
+
+networks:
+  edc-base-dev:
+    driver: bridge

@@ -25,6 +25,15 @@ Self signed certificates for only development purpose can be found here
 
 * [certs](certs)
 
+API-Wrapper (pre-build docker image from catenax-at-home)
+
+* [api-wrapper](https://github.com/catenax-ng/catenax-at-home)
+
+Omejdn (pre-build docker image for DAPS from Fraunhofer)
+
+* [omejdn](https://github.com/Fraunhofer-AISEC/omejdn-server)
+
+
 ## Prerequisites
 
 #### EDC artifacts
@@ -46,6 +55,11 @@ cd edc && ./gradlew publishToMavenLocal -x test
 cd edc-controlplane-memory && ./gradlew clean build
 ```
 
+### Build EDC-Controlplane-Memory with DAPS (Omejdn)
+```shell
+cd edc-controlplane-memory-daps && ./gradlew clean build
+```
+
 ### Build EDC-Dataplane
 ```shell
 cd edc-dataplane && ./gradlew clean build
@@ -57,30 +71,26 @@ cd backend-data-service && ./gradlew clean build
 ```
 
 ## Run
-This project includes multiple setup/run possibilities.
+This project contains multiple modules as docker-compose files which can be run separately or in combination within the same docker-network.
+* dc-provider-bds.yml: Provider EDC with a dummy backend-data-service.
+* dc-provider-daps.yml: Provider EDC with DAPS (Omejdn) integration.
+* dc-consumer.yml: Consumer EDC.
+* dc-consumer-daps.yml: Consumer EDC with DAPS (Omejdn) integration. 
+* dc-daps.yml: Pre-build DAPS (Omejdn) server.
+* dc-api-wrapper.yml: Pre-build API-Wrapper.
 
-####  Run self-build multiple docker container with: 
-* edc-controlplane-memory (provider)
-* edc-dataplane (provider)
-* edc-controlplane-memory (consumer)
-* edc-dataplane (consumer)
-* backend-data-service
+To run each of them separately or in combination please use the following command:
 
-```shell
-docker-compose up --build
+Run single component:
+```
+docker-compose -f <docker-compose-file-name> up --build
+```
+Run multiple components in same docker network:
+```
+docker-compose -f <docker-compose-file-name> ... -f <docker-compose-file-name> up --build
+For example: "docker-compose -f dc-provider-bds-daps.yml -f dc-consumer-daps.yml -f dc-daps.yml -f dc-api-wrapper.yml up --build" 
 ```
 
-####  Run self-build multiple docker container with:
-* edc-controlplane-memory (provider)
-* edc-dataplane (provider)
-* edc-controlplane-memory (consumer)
-* edc-dataplane (consumer)
-* backend-data-service
-* api-wrapper
-
-```shell
-docker-compose -f docker-compose-with-api-wrapper.yml up --build
-```
 ## Test
 With the Postman Collection "edc-base-dev_API-Calls.postmann_collection.json" you can test the whole setup.
 

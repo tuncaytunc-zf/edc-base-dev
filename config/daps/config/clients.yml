@@ -1,0 +1,17 @@
+---
+- client_id: consumer-edc-1
+  name: consumer-edc-1
+  allowed_scopes:
+    - idsc:IDS_CONNECTOR_ATTRIBUTES_ALL
+  attributes:
+    - key: securityProfile
+  value: idsc:BASE_SECURITY_PROFILE
+  redirect_uri: http://localhost:4200
+- client_id: provider-edc-1
+  name: provider-edc-1
+  allowed_scopes:
+    - idsc:IDS_CONNECTOR_ATTRIBUTES_ALL
+  attributes:
+    - key: securityProfile
+  value: idsc:BASE_SECURITY_PROFILE
+  redirect_uri: http://localhost:4200

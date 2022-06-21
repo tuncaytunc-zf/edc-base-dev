@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  provider-controlplane:
+    build:
+      context: edc-controlplane-memory-daps
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "8081:9191" # default/control (8181:9191)
+      - "8084:9192" # validation (8184:9192)
+      - "8087:9193" # data (8187:9193)
+      - "5005:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/provider_cp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  provider-dataplane:
+    build:
+      context: edc-dataplane
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "9082:9191" # default (8182:9191)
+      - "9083:9192" # public (8283:9192)
+      - "5006:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/provider_dp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  provider-backend-data-service:
+    build:
+      context: backend-data-service
+      args:
+        JAR: build/libs/backend-data-service.jar
+    ports:
+      - "7080:8080" # default (8194:8080)
+      - "5009:8090"
+    networks:
+      - edc-base-dev
+
+networks:
+  edc-base-dev:
+    driver: bridge

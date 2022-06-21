@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  consumer-controlplane:
+    build:
+      context: edc-controlplane-memory-daps
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "8182:8282" # ids
+      - "8185:8185" # public
+      - "8191:9191" # default
+      - "8192:9192" # validation
+      - "8195:9193" # data
+      - "8199:9999" # control
+      - "5007:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/consumer_cp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+  consumer-dataplane:
+    build:
+      context: edc-dataplane
+      args:
+        JAR: build/libs/edc.jar
+    ports:
+      - "9192:9191" # default (8192:9191)
+      - "9183:9192" # public (8183:9192)
+      - "5008:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      EDC_VAULT: /app/vault.properties
+      EDC_KEYSTORE: /app/cert.pfx
+      EDC_KEYSTORE_PASSWORD: 123456
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+      LOGGING_PROPERTIES_FILE: /app/logging.properties
+      OPENTELEMETRY_PROPERTIES_FILE: /app/opentelemetry.properties
+    volumes:
+      - ./certs/cert.pfx:/app/cert.pfx
+      - ./config/vault.properties:/app/vault.properties
+      - ./config/consumer_dp_configuration.properties:/app/configuration.properties
+      - ./config/opentelemetry.properties:/app/opentelemetry.properties
+      - ./config/logging.properties:/app/logging.properties
+
+networks:
+  edc-base-dev:
+    driver: bridge
