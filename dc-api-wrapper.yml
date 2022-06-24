@@ -4,7 +4,7 @@ services:
   consumer-api-wrapper:
     image: ghcr.io/catenax-ng/catenax-at-home/consumer-api-wrapper:0.0.3
     ports:
-      - "7090:9191" # default (8193:9191)
+      - "7090:9191" # default
       - "5010:8090" # debugging
     networks:
       - edc-base-dev

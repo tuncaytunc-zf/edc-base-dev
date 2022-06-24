@@ -36,8 +36,8 @@ services:
       args:
         JAR: build/libs/edc.jar
     ports:
-      - "9192:9191" # default (8192:9191)
-      - "9183:9192" # public (8183:9192)
+      - "9192:9191" # default
+      - "9183:9192" # public
       - "5008:8090" # debugging
     networks:
       - edc-base-dev
