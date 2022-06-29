@@ -602,7 +602,7 @@
 		},
 		{
 			"key": "edcBackendService",
-			"value": "http://localhost:9999",
+			"value": "http://localhost:7081",
 			"type": "string"
 		}
 	]
