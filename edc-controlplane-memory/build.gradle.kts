@@ -17,7 +17,7 @@ dependencies {
     api("$edcGroup:filesystem-vault:$edcVersion")
 
     // APIs
-    api("$edcGroup:control-api:$edcVersion")
+//    api("$edcGroup:control-api:$edcVersion")
     api("$edcGroup:data-management-api:$edcVersion")
     api("$edcGroup:observability-api:$edcVersion")
 

@@ -6,8 +6,9 @@ ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,addr
 WORKDIR /app
 COPY $JAR app.jar
 
-EXPOSE 8080
+EXPOSE 8181
 
 ENTRYPOINT java \
+    "-Dedc.fs.config=/app/configuration.properties" \
     -Djava.security.edg=file:/dev/.urandom \
     -jar app.jar

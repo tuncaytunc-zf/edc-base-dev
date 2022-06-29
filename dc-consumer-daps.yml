@@ -12,6 +12,7 @@ services:
       - "8191:9191" # default
       - "8192:9192" # validation
       - "8195:9193" # data
+      - "8190:9900" # dataplane
       - "8199:9999" # control
       - "5007:8090" # debugging
     networks:

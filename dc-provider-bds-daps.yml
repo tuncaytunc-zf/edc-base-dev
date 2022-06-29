@@ -7,9 +7,10 @@ services:
       args:
         JAR: build/libs/edc.jar
     ports:
-      - "8081:9191" # default/control
+      - "8081:9191" # default
       - "8084:9192" # validation
       - "8087:9193" # data
+      - "8090:9900" # dataplane
       - "5005:8090" # debugging
     networks:
       - edc-base-dev
