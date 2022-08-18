@@ -33,7 +33,4 @@ public class ConsumerBackendServiceController {
         monitor.info("Retrieve data...");
         return data.get();
     }
-
-
-
 }
