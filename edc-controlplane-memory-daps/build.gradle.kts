@@ -17,7 +17,6 @@ dependencies {
     api("$edcGroup:filesystem-vault:$edcVersion")
 
     // APIs
-    api("$edcGroup:control-api:$edcVersion")
     api("$edcGroup:data-management-api:$edcVersion")
     api("$edcGroup:observability-api:$edcVersion")
 
@@ -38,6 +37,14 @@ dependencies {
 
     // Data-Plane
     api("$edcGroup:data-plane-transfer-sync:$edcVersion")
+    api("$edcGroup:data-plane-transfer-spi:$edcVersion")
+    api("$edcGroup:data-plane-transfer-client:$edcVersion")
+
+    api("$edcGroup:data-plane-selector-core:$edcVersion")
+    api("$edcGroup:data-plane-selector-client:$edcVersion")
+    api("$edcGroup:data-plane-selector-store:$edcVersion")
+    api("$edcGroup:data-plane-selector-api:$edcVersion")
+    api("$edcGroup:data-plane-selector-spi:$edcVersion")
 
     // IAM
     api("$edcGroup:oauth2-core:$edcVersion")
@@ -53,6 +60,7 @@ dependencies {
 
     // Supportive includes jetty and jersey
     api("$edcGroup:http:$edcVersion")
+    api("$edcGroup:http-provisioner:$edcVersion")
     api("$edcGroup:http-receiver:$edcVersion")
 }
 

@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  edc-backend-service:
+    build:
+      context: edc-backend-service
+      args:
+        JAR: build/libs/edc-backend-service.jar
+    ports:
+      - "7081:8080" # default
+      - "5011:8090" # debugging
+    networks:
+      - edc-base-dev
+    environment:
+      CONFIGURATION_PROPERTIES_FILE: /app/configuration.properties
+    volumes:
+      - ./config/backend-service.properties:/app/configuration.properties
+
+networks:
+  edc-base-dev:
+    driver: bridge

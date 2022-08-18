@@ -17,6 +17,7 @@ services:
     networks:
       - edc-base-dev
     environment:
+      OTEL_SERVICE_NAME: consumer-controlplane
       EDC_VAULT: /app/vault.properties
       EDC_KEYSTORE: /app/cert.pfx
       EDC_KEYSTORE_PASSWORD: 123456
@@ -42,6 +43,7 @@ services:
     networks:
       - edc-base-dev
     environment:
+      OTEL_SERVICE_NAME: consumer-dataplane
       EDC_VAULT: /app/vault.properties
       EDC_KEYSTORE: /app/cert.pfx
       EDC_KEYSTORE_PASSWORD: 123456

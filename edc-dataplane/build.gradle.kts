@@ -21,6 +21,7 @@ dependencies {
     api("$edcGroup:data-plane-http:$edcVersion")
     api("$edcGroup:data-plane-api:$edcVersion")
     api("$edcGroup:observability-api:$edcVersion")
+    api("$edcGroup:data-plane-spi:$edcVersion")
 
     // Core
     api("$edcGroup:core-base:$edcVersion")

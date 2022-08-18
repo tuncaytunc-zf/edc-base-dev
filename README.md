@@ -47,7 +47,7 @@ to be built upfront to be used:
 
 ```shell
 git submodule update --init
-cd edc && ./gradlew publishToMavenLocal -x test
+cd edc && ./gradlew publishToMavenLocal -x test -Pskip.signing=true
 ```
 
 

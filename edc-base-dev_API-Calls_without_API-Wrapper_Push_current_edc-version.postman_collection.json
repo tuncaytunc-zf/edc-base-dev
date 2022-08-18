@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "b13d3365-0105-42b2-b127-39fe8982304f",
+		"name": "edc-base-dev_API-Calls_without_API-Wrapper_Push_current_edc-version",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6134257"
+	},
+	"item": [
+		{
+			"name": "Data Provider",
+			"item": [
+				{
+					"name": "1. Create sample data in BackEndDataService",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"performanceIndicator\": {\n        \"electricCapacityMin\": 1.7976931348623155E308,\n        \"electricCapacityMax\": 1.7976931348623155E308\n    },\n    \"minimalStateOfHealth\": {\n        \"minimalStateOfHealthValue\": 1.7976931348623155E308,\n        \"specificatorId\": \"eOMtThyhVNLWUZNRcBaQKxI\",\n        \"minimalStateOfHealthPhase\": \"as specified by OEM\"\n    },\n    \"type\": \"HVB\",\n    \"currentStateOfHealth\": [\n        {\n            \"currentStateOfHealthPhase\": \"as specified by OEM\",\n            \"currentStateOfHealthTimestamp\": \"2022-04-07T11:55:16.809Z\",\n            \"currentStateOfHealthValue\": 1.7976931348623155E308\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendDataServiceUrl}}/data/{{digitalTwinSubmodelId}}",
+							"host": [
+								"{{backendDataServiceUrl}}"
+							],
+							"path": [
+								"data",
+								"{{digitalTwinSubmodelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.1 Get sample data from BackEndDataService",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"performanceIndicator\": {\n        \"electricCapacityMin\": 1.7976931348623155E308,\n        \"electricCapacityMax\": 1.7976931348623155E308\n    },\n    \"minimalStateOfHealth\": {\n        \"minimalStateOfHealthValue\": 1.7976931348623155E308,\n        \"specificatorId\": \"eOMtThyhVNLWUZNRcBaQKxI\",\n        \"minimalStateOfHealthPhase\": \"as specified by OEM\"\n    },\n    \"type\": \"HVB\",\n    \"currentStateOfHealth\": [\n        {\n            \"currentStateOfHealthPhase\": \"as specified by OEM\",\n            \"currentStateOfHealthTimestamp\": \"2022-04-07T11:55:16.809Z\",\n            \"currentStateOfHealthValue\": 1.7976931348623155E308\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendDataServiceUrl}}/data/{{digitalTwinSubmodelId}}",
+							"host": [
+								"{{backendDataServiceUrl}}"
+							],
+							"path": [
+								"data",
+								"{{digitalTwinSubmodelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Create an Asset in Provider EDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"asset\": {\n    \"properties\": {\n      \"asset:prop:id\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n      \"asset:prop:name\": \"product description\",\n      \"asset:prop:contenttype\": \"application/json\",\n      \"asset:prop:policy-id\": \"use-eu\"\n    }\n  },\n  \"dataAddress\": {\n    \"properties\": {\n      \"name\": \"transfer-test\",  \n      \"baseUrl\": \"{{backendDataServiceDockerInternalUrl}}/{{digitalTwinSubmodelId}}\",\n      \"type\": \"HttpData\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/assets",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1. Fetch all Assets from Provider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/assets",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Create a Policy in Provider EDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"policy\": {\n  \"uid\": \"{{edcPolicyId}}\",\n  \"permissions\": [\n    {\n      \"target\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n      \"action\": {\n        \"type\": \"USE\"\n      },\n      \"edctype\": \"dataspaceconnector:permission\"\n    }\n  ],\n  \"@type\": {\n    \"@policytype\": \"set\"\n  }\n  }  \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/policydefinitions",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"policydefinitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Create a Contract Definition in Provider EDC (Use PolicyId from Output)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "123456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"accessPolicyId\": \"<PolicyID>\",\n  \"contractPolicyId\": \"<PolicyID>\",\n  \"criteria\": []\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{providerControlPlane}}/api/v1/data/contractdefinitions",
+							"host": [
+								"{{providerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"contractdefinitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data Consumer",
+			"item": [
+				{
+					"name": "1. Fetch catalog from Provider ControlPlane to get all contractOffers -> Pick the conractOffers id you want to negotiate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-key",
+								"value": "123456",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/catalog?providerUrl=http://provider-controlplane:8282/api/v1/ids/data",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"catalog"
+							],
+							"query": [
+								{
+									"key": "providerUrl",
+									"value": "http://provider-controlplane:8282/api/v1/ids/data"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Initiate Contractnegotiation -> Take the ContractNegotioation Id from response body",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"connectorId\": \"provider\",\n    \"connectorAddress\": \"http://provider-controlplane:8282/api/v1/ids/data\",\n    \"protocol\": \"ids-multipart\",\n    \"offer\": {\n        \"offerId\": \"<contractOfferID>\",\n        \"assetId\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n        \"policy\": {\n            \"uid\": \"{{edcPolicyId}}\",\n            \"permissions\": [{\n                    \"target\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\n                    \"action\": {\n                        \"type\": \"USE\"\n                    },\n                    \"edctype\": \"dataspaceconnector:permission\"\n                }\n            ],\n            \"@type\": {\n                \"@policytype\": \"set\"\n            }\n        }\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/contractnegotiations",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"contractnegotiations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get ContractNegotiation status and contractAgreementId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/contractnegotiations/<negotiationID>",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"contractnegotiations",
+								"<negotiationID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.1. Get all Contractnegotiations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"connectorId\": \"provider\",\n    \"connectorAddress\": \"http://provider-controlplane:8282/api/v1/ids/data\",\n    \"protocol\": \"ids-multipart\",\n    \"offer\": {\n        \"offerId\": \"urn:uuid:61125dc3-5e6f-4f4b-838d-447432b97918\",\n        \"assetId\": \"asset-1\",\n        \"policy\": {\n            \"uid\": \"random-random\",\n            \"permission\": {\n                \"edctype\": \"dataspaceconnector:permission\",\n                \"target\": \"asset-1\",\n                \"action\": {\n                    \"type\": \"USE\"\n                }\n            },\n            \"@type\": {\n                \"@policytype\": \"set\"\n            }\n        }\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8195/api/v1/data/contractnegotiations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8195",
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"contractnegotiations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4a.1. (pull) Initiate Transferprocess to get EndpointDataReference (will be send to configured edc.receiver.http.endpoint)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"connectorAddress\": \"http://provider-controlplane:8282/api/v1/ids/data\",\r\n  \"protocol\": \"ids-multipart\",\r\n  \"connectorId\": \"provider\",\r\n  \"assetId\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\r\n  \"contractId\": \"<contractAgreementID>\",\r\n  \"dataDestination\": {\r\n    \"properties\": {\r\n      \"type\": \"HttpProxy\"\r\n    }\r\n  },\r\n  \"managedResources\": false,\r\n  \"transferType\": {\r\n    \"contentType\": \"application/octet-stream\",\r\n    \"isFinite\": true\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/transferprocess",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"transferprocess"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4a.1.1. (pull) Get transferprocess state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/transferprocess/<transferProcessId>",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"transferprocess",
+								"<transferProcessId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4a.2. (pull) Get Data by using the Token (Use AutheKey and AuthCode (as single line) from edc-callback-serivce system.output)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzI1NiJ9.eyJkYWQiOiJ7XCJwcm9wZXJ0aWVzXCI6e1wiYXV0aEtleVwiOlwiQXV0aG9yaXphdGlvblwiLFwiZW5kcG9pbnRcIjpcImh0dHA6XC9cL3Byb3ZpZGVyLWRhdGFwbGFuZTo5MTkyXC9wdWJsaWNcIixcImF1dGhDb2RlXCI6XCJleUpoYkdjaU9pSlNVekkxTmlKOS5leUprWVdRaU9pSjdYQ0p3Y205d1pYSjBhV1Z6WENJNmUxd2laVzVrY0c5cGJuUmNJanBjSW1oMGRIQTZYQzljTDNCeWIzWnBaR1Z5TFdKaFkydGxibVF0WkdGMFlTMXpaWEoyYVdObE9qZ3dPREJjTDJSaGRHRmNMM1Z5YmpwMWRXbGtPall4TVRJMVpHTXpMVFZsTm1ZdE5HWTBZaTA0TXpoa0xUUTBOelF6TW1JNU56a3hPRndpTEZ3aWRIbHdaVndpT2x3aVNIUjBjRVJoZEdGY0luMTlJaXdpWlhod0lqb3hOalUyTURjeE1UWTFMQ0pqYVdRaU9pSXhPbU0xWVdKaE1ERTFMVEJsTXpJdE5ETTBOUzFoTWpObExUazRZalV5TUdJM01ERTBPU0o5Lldfb2NNTm1ZWUdRQnN4c2pRb1FmQ2h6WXFLc1N1c0dIVjZpR0M1ZkRVNWkxVmRHT0RUNXNTZEhINVNQUHpjY2ZxQndMMzlUZ0pfc0k2S0VpNjZQQVFMbncxaXhNWlg2VUVZVkY3RGpYQlVJYjhpSEl5MEkwdEE2QTVDWHBoaWdONG9IWjJGM3FINGlDbE9zWks1TDg3cFdUUklycS1ZM3hvYWRTRS1jRWdZLUpNOE4waml6d0tvZmh5c05oUGltX2g0am4zNzdsamxJamtmd3Vkc0w1QzhaSkRPQ3VrUVJ5Ty12ZWcwTUQyN0sxMDQxOHZURUlZaXdfN09HajNmdmFwQVpDZGZSRDZRVXNrREs4eDcyMzJlMXZId1JHeWUzaGNyMV9JZ1dYampiTjlOMnV2Wk1kUzhUSElJUnJTY3VvZmlfblpEbk9ycHZHZi1kT3p5VTZsd1wiLFwicHJveHlRdWVyeVBhcmFtc1wiOlwidHJ1ZVwiLFwicHJveHlNZXRob2RcIjpcInRydWVcIixcInByb3h5Qm9keVwiOlwidHJ1ZVwiLFwidHlwZVwiOlwiSHR0cERhdGFcIixcInByb3h5UGF0aFwiOlwidHJ1ZVwifX0iLCJleHAiOjE2NTYwNzExNjUsImNpZCI6IjE6YzVhYmEwMTUtMGUzMi00MzQ1LWEyM2UtOThiNTIwYjcwMTQ5In0.X2DQk7iqOL6rWs01vi32TNo_JMv2XYfp6q94Q2v_BZkF4e0zVhIBPI3UiMI6YWMlznYFe-oTTOw0vZWXkmMoJ3m8-R6T9eiSU_V2t7WHLOnI1HqZWpfSY5tQ0yIRKLGJjTBmzIOOgwraLz000cIiaDfhjEOzxCx6dYTFxNAaCQIvrGBDu9yGfuttDNOqWvZSgz0jasARCORA7oJ_sTnxBcZZCsngY38SsnM9YyV_mDWmxT4zO70J-jsHLz8vvGbes3Px3zrLYGPY5x0sZr-NHxr_3tiY19kVHDQP_BqMm_RXt0xBhV3GhPSdzhL0RRzXYiv4-yE2VWmxMijNom0_7A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{consumerDataPlane}}/public",
+							"host": [
+								"{{consumerDataPlane}}"
+							],
+							"path": [
+								"public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4b.1. (push) Register DataPlan for push",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"edctype\": \"dataspaceconnector:dataplaneinstance\",\r\n  \"id\": \"ConsumerDataplane-1\",\r\n  \"url\": \"http://consumer-dataplane:9999/api/v1/dataplane/control/transfer\",\r\n  \"allowedSourceTypes\": [\"HttpData\", \"HttpProvision\"],\r\n  \"allowedDestTypes\": [\"HttpData\", \"HttpProvision\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/dataplane/instances",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"dataplane",
+								"instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4b.2. (push) Initiate Transferprocess to get the data via push",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contractId\": \"<contractAgreementId>\",\r\n  \"assetId\": \"{{digitalTwinId}}-{{digitalTwinSubmodelId}}\",\r\n  \"connectorId\": \"provider\",\r\n  \"connectorAddress\": \"http://provider-controlplane:8282/api/v1/ids/data\",\r\n  \"protocol\": \"ids-multipart\",\r\n  \"dataDestination\": {\r\n    \"properties\": {\r\n      \"type\": \"HttpData\",\r\n      \"baseUrl\": \"http://edc-backend-service:8080/api/backend/store\"\r\n    }\r\n  },\r\n  \"managedResources\": false,\r\n  \"transferType\": {\r\n    \"contentType\": \"application/json\",\r\n    \"isFinite\": true\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/transferprocess",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"transferprocess"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4b.2.1. (push) Get transferprocess state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{consumerControlPlane}}/api/v1/data/transferprocess/<transferProcessId>",
+							"host": [
+								"{{consumerControlPlane}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"data",
+								"transferprocess",
+								"<transferProcessId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4b.3. (push) Get Data from edc-backend-service where the data were pushed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{edcBackendService}}/api/backend/data",
+							"host": [
+								"{{edcBackendService}}"
+							],
+							"path": [
+								"api",
+								"backend",
+								"data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiWrapperUrl",
+			"value": "http://localhost:7090/api/service",
+			"type": "string"
+		},
+		{
+			"key": "providerControlPlane",
+			"value": "http://localhost:8087",
+			"type": "string"
+		},
+		{
+			"key": "providerControlPlaneIdsDockerInternal",
+			"value": "http://provider-controlplane:8282",
+			"type": "string"
+		},
+		{
+			"key": "backendDataServiceUrl",
+			"value": "http://localhost:7080",
+			"type": "string"
+		},
+		{
+			"key": "providerBpn",
+			"value": "some-bpn",
+			"type": "default"
+		},
+		{
+			"key": "digitalTwinId",
+			"value": "urn:uuid:365e6fbe-bb34-11ec-8422-0242ac120002",
+			"type": "string"
+		},
+		{
+			"key": "digitalTwinSubmodelId",
+			"value": "urn:uuid:61125dc3-5e6f-4f4b-838d-447432b97918",
+			"type": "string"
+		},
+		{
+			"key": "edcPolicyId",
+			"value": "231802-bb34-11ec-8422-0242ac120002",
+			"type": "string"
+		},
+		{
+			"key": "backendDataServiceDockerInternalUrl",
+			"value": "http://provider-backend-data-service:8080/data",
+			"type": "string"
+		},
+		{
+			"key": "consumerControlPlane",
+			"value": "http://localhost:8195",
+			"type": "string"
+		},
+		{
+			"key": "consumerDataPlane",
+			"value": "http://localhost:9183",
+			"type": "string"
+		},
+		{
+			"key": "edcBackendService",
+			"value": "http://localhost:7081",
+			"type": "string"
+		}
+	]
+}
